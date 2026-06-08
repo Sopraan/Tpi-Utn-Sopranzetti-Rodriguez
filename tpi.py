@@ -51,7 +51,7 @@ def actualizar_superficie():
         pais = buscar_pais(paises, consulta_pais)
         if pais is None:
             print("Pais no encontrado")
-            continuegis
+            continue
         break
 
     while True:
@@ -162,7 +162,8 @@ def filtro_por_poblacion():
             "No se encontraron paises dentro del rango de poblacion, proba con una poblacion mayor"
         )
         return
-    
+
+
 def filtro_por_superficie():
 
     while True:
@@ -197,7 +198,6 @@ def filtro_por_superficie():
         return
 
 
-
 paises = []
 
 
@@ -208,9 +208,63 @@ with open("base.csv", "r", encoding="utf-8") as archivo:
         paises.append(pais)
 
 
-# actualizar_poblacion()
-# actualizar_superficie()
-# agregar_pais()
-filtro_por_continente()
-filtro_por_poblacion()
-filtro_por_superficie()
+def ordenar_paises(paises, clave):
+    return sorted(paises, key=lambda x: x[clave])
+
+def listar_datos(datos, maximo_por_pagina=10):
+    mostrados = 0
+    total = len(datos)
+
+    while mostrados < total:
+        lote = datos[mostrados : mostrados + maximo_por_pagina]
+        for i, pais in enumerate(lote, start=mostrados + 1):
+            print(
+                f"{i}. {pais['nombre']} ({pais['continente']}) - Poblacion: {pais['poblacion']} - Superficie: {pais['superficie']} Km2"
+            )
+
+        print()
+
+        mostrados += len(lote)
+        if mostrados >= total:
+            print("No hay mas paises para mostrar.\n")
+            break
+
+        print(f"Mostrados {mostrados} de {total} paises.")
+        entrada = (
+            input(f"Presione [Enter] para cargar más  [q] Salir → ").strip().lower()
+        )
+
+        if entrada == "q":
+            break
+
+
+def main():
+    while True:
+        print(
+            "Menu: \n 1. Actualizar poblacion\n 2. Actualizar superficie\n 3. Agregar pais\n 4. Filtrar por continente\n 5. Filtrar por poblacion\n 6. Filtrar por superficie\n 7. Listar paises\n 8. Salir"
+        )
+        opcion = input("Selecciona una opcion: ")
+        if opcion == "1":
+            actualizar_poblacion()
+        elif opcion == "2":
+            actualizar_superficie()
+        elif opcion == "3":
+            agregar_pais()
+        elif opcion == "4":
+            filtro_por_continente()
+        elif opcion == "5":
+            filtro_por_poblacion()
+        elif opcion == "6":
+            filtro_por_superficie()
+        elif opcion == "7":
+            paises_ordenados = ordenar_paises(paises, "nombre")
+            listar_datos(paises_ordenados)
+        elif opcion == "8":
+            print("Saliendo del programa...")
+            break
+        else:
+            print("Opcion invalida, por favor selecciona una opcion del menu")
+
+
+if __name__ == "__main__":
+    main()
