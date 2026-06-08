@@ -214,3 +214,36 @@ with open("base.csv", "r", encoding="utf-8") as archivo:
 filtro_por_continente()
 filtro_por_poblacion()
 filtro_por_superficie()
+
+
+# Estadísticas
+def estadisticas():
+    total_paises = len(paises)
+    print(f"Total de paises cargados: {total_paises}")
+
+    poblacion_total = sum(int(pais["poblacion"]) for pais in paises)
+    poblacion_promedio = poblacion_total / total_paises if total_paises > 0 else 0
+    print(f"Poblacion promedio: {poblacion_promedio:.0f} habitantes por pais")
+
+    superficie_total = sum(float(pais["superficie"]) for pais in paises)
+    superficie_promedio = superficie_total / total_paises if total_paises > 0 else 0
+    print(f"Superficie promedio: {superficie_promedio:.2f} Km2")
+
+    continente_paises = {}
+    for pais in paises:
+        continente = pais["continente"]
+        if continente not in continente_paises:
+            continente_paises[continente] = []
+        continente_paises[continente].append(pais)
+
+    for continente, paises_continente in continente_paises.items():
+        print(f"\nContinente: {continente}")
+        print(f"Cantidad de paises: {len(paises_continente)}")
+        poblacion_continente = sum(int(pais["poblacion"]) for pais in paises_continente)
+        print(f"Poblacion total: {poblacion_continente}")
+        superficie_continente = sum(float(pais["superficie"]) for pais in paises_continente)
+        print(f"Superficie total: {superficie_continente} Km2")
+
+    # Cuando esten listas las funciones para ordenar paises, mostrar:
+    # Paises con mayor y menor poblacion
+estadisticas()
