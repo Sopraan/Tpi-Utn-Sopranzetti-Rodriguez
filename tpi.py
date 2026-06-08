@@ -51,7 +51,7 @@ def actualizar_superficie():
         pais = buscar_pais(paises, consulta_pais)
         if pais is None:
             print("Pais no encontrado")
-            continue
+            continuegis
         break
 
     while True:
@@ -109,6 +109,95 @@ def agregar_pais():
     print(f"Se agrego {pais_a_agregar} a la base")
 
 
+def filtro_por_continente():
+    print("Continentes: \n 1. America\n 2. Europa\n 3. Asia\n 4. Africa\n 5. Oceania")
+    while True:
+        continente = input("Ingresa el continente a filtrar: ").strip()
+        if continente == "":
+            print("Error: no se piueden ingresar campos vacios")
+            continue
+        if not continente.isalpha():
+            print("Error: No se pueden ingresar numeros, escribi el continente")
+            continue
+        # se limita el filtro a los contientes reales, para evitar errores
+        if continente not in ["america", "asia", "europa", "oceania", "africa"]:
+            print("Error: Continente invalido")
+            continue
+        break
+    # se inprimen los paises que corresponden al continente elegido
+    for pais in paises:
+        if pais["continente"].lower() == continente.lower():
+            print(f"{pais['nombre']}\n")
+
+
+def filtro_por_poblacion():
+
+    while True:
+        try:
+            poblacion_minima = int(input("Ingresa el numero de poblacion minima: "))
+            break
+        except ValueError:
+            print("Error: ingresa solamente numeros")
+    while True:
+        try:
+            poblacion_maxima = int(input("Ingresa el numero de poblacion maxima: "))
+            break
+        except ValueError:
+            print("Error: ingresa solamente numeros")
+
+    if poblacion_minima > poblacion_maxima:
+        print("Error: la poblacion minima no puede superar a la poblacion maxima ")
+        return
+
+    encontrado = False
+
+    for pais in paises:
+        poblacion = int(pais["poblacion"])
+        if poblacion_minima <= poblacion <= poblacion_maxima:
+            print(f"{pais['nombre']} - Poblacion: {poblacion}")
+            encontrado = True
+
+    if not encontrado:
+        print(
+            "No se encontraron paises dentro del rango de poblacion, proba con una poblacion mayor"
+        )
+        return
+    
+def filtro_por_superficie():
+
+    while True:
+        try:
+            superficie_minima = int(input("Ingresa el numero de superficie minima: "))
+            break
+        except ValueError:
+            print("Error: ingresa solamente numeros")
+    while True:
+        try:
+            superficie_maxima = int(input("Ingresa el numero de superficie maxima: "))
+            break
+        except ValueError:
+            print("Error: ingresa solamente numeros")
+
+    if superficie_minima > superficie_maxima:
+        print("Error: la superficie minima no puede superar a la superficie maxima ")
+        return
+
+    encontrado = False
+
+    for pais in paises:
+        superficie = int(pais["superficie"])
+        if superficie_minima <= superficie <= superficie_maxima:
+            print(f"{pais['nombre']} - Superficie: {superficie} Km2")
+            encontrado = True
+
+    if not encontrado:
+        print(
+            "No se encontraron paises dentro del rango de superficie, proba con una superficie mayor"
+        )
+        return
+
+
+
 paises = []
 
 
@@ -119,6 +208,9 @@ with open("base.csv", "r", encoding="utf-8") as archivo:
         paises.append(pais)
 
 
-actualizar_poblacion()
-actualizar_superficie()
-agregar_pais()
+# actualizar_poblacion()
+# actualizar_superficie()
+# agregar_pais()
+filtro_por_continente()
+filtro_por_poblacion()
+filtro_por_superficie()
