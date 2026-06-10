@@ -16,7 +16,7 @@ def validacion_paises():
 # busqueda rapida de paises en csv
 def buscar_pais(paises, nombre):
     for pais in paises:
-        if pais["nombre"].lower() == nombre.lower():
+        if nombre.lower() in pais ["nombre"].lower():
             return pais
 
         return None
@@ -51,7 +51,7 @@ def actualizar_superficie():
         pais = buscar_pais(paises, consulta_pais)
         if pais is None:
             print("Pais no encontrado")
-            continuegis
+            continue
         break
 
     while True:
@@ -208,9 +208,9 @@ with open("base.csv", "r", encoding="utf-8") as archivo:
         paises.append(pais)
 
 
-# actualizar_poblacion()
-# actualizar_superficie()
-# agregar_pais()
+actualizar_poblacion()
+actualizar_superficie()
+agregar_pais()
 filtro_por_continente()
 filtro_por_poblacion()
 filtro_por_superficie()
