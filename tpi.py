@@ -16,7 +16,7 @@ def validacion_paises():
 # busqueda rapida de paises en csv
 def buscar_pais(paises, nombre):
     for pais in paises:
-        if pais["nombre"].lower() == nombre.lower():
+        if nombre.lower() in pais ["nombre"].lower():
             return pais
 
         return None
