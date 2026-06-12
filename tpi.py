@@ -121,6 +121,8 @@ def actualizar_poblacion(paises):
     nueva_poblacion = pedir_entero("Ingrese la población a modificar: ", min=0)
 
     pais["poblacion"] = nueva_poblacion
+    
+    nueva_poblacion = formatear_numero(nueva_poblacion)
     print(f"La población de {pais['nombre']} se actualizó a: {nueva_poblacion}")
 
 
@@ -131,6 +133,8 @@ def actualizar_superficie(paises):
     nueva_superficie = pedir_flotante("Ingrese la superficie a modificar: ", min=0)
 
     pais["superficie"] = nueva_superficie
+    
+    nueva_superficie = formatear_numero(nueva_superficie, 2)
     print(f"La superficie de {pais['nombre']} se actualizó a: {nueva_superficie} Km2")
 
 
@@ -156,8 +160,11 @@ def agregar_pais(paises):
     }
 
     paises.append(pais_a_agregar)
+
+    poblacion = formatear_numero(poblacion)
+    superficie = formatear_numero(superficie, 2)
     print(
-        f"Se agregó {pais_a_agregar['nombre']} - Población: {pais_a_agregar['poblacion']} - Superficie: {pais_a_agregar['superficie']} - Continente: {pais_a_agregar['continente']}"
+        f"Se agregó {nombre} - Población: {poblacion} - Superficie: {superficie} - Continente: {continente}"
     )
 
 
@@ -171,7 +178,7 @@ def filtro_por_continente(paises):
 
     for pais in paises:
         if pais["continente"].lower() == continente.lower():
-            print(f"{pais['nombre']}")
+            print(f"- {pais['nombre']}")
 
 
 def filtro_por_poblacion(paises):
@@ -197,7 +204,7 @@ def filtro_por_poblacion(paises):
     for pais in paises:
         poblacion = pais["poblacion"]
         if poblacion_minima <= poblacion <= poblacion_maxima:
-            print(f"{pais['nombre']} - Población: {poblacion}")
+            print(f"{pais['nombre']} - Población: {formatear_numero(poblacion)}")
             encontrado = True
 
     if not encontrado:
@@ -228,7 +235,7 @@ def filtro_por_superficie(paises):
     for pais in paises:
         superficie = pais["superficie"]
         if superficie_minima <= superficie <= superficie_maxima:
-            print(f"{pais['nombre']} - Superficie: {superficie} Km2")
+            print(f"{pais['nombre']} - Superficie: {formatear_numero(superficie)} Km2")
             encontrado = True
 
     if not encontrado:
