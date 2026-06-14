@@ -56,20 +56,6 @@ def pedir_entero_opcional(texto):
             print("Error: ingrese un número entero")
 
 
-def pedir_flotante(texto, min=None):
-    """Solicita un número flotante con validación y mínimo opcional."""
-    while True:
-        try:
-            numero = float(input(texto))
-            if min is not None and numero < min:
-                print(f"Error: ingrese un número mayor o igual a {min}")
-                continue
-            return numero
-
-        except ValueError:
-            print("Error: ingrese un número")
-
-
 def formatear_numero(numero, decimales=2):
     """Devuelve el número con separadores de miles."""
     if isinstance(numero, float):
@@ -130,7 +116,7 @@ def actualizar_superficie(paises):
     """Actualiza la superficie de un pais existente."""
     pais = pedir_pais(paises, "Ingresar el pais elegido: ")
 
-    nueva_superficie = pedir_flotante("Ingrese la superficie a modificar: ", min=0)
+    nueva_superficie = pedir_entero("Ingrese la superficie a modificar: ", min=0)
 
     pais["superficie"] = nueva_superficie
     
