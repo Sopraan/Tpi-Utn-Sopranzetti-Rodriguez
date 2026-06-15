@@ -81,5 +81,5 @@ Ingresa el continente a filtrar: africa
 
 ## Enlaces
 
-- PDF: *[pendiente]*
-- Video: *[pendiente]*
+- PDF: [Link al archivo](./Informe%20-%20Trabajo%20Integrador.pdf)
+- Video: [Youtube](https://youtu.be/L7IV09FKPJo)
